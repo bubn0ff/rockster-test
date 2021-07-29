@@ -1,0 +1,887 @@
+//=======< ОБНУЛЕНИЕ >===============================================================
+
+@import "./normalize";
+
+//=======< / ОБНУЛЕНИЕ >===============================================================
+
+//=======< ПОДГРУЗКА ШРИФТОВ >===============================================================
+
+@import './fonts';
+
+//=======< / ПОДГРУЗКА ШРИФТОВ >===============================================================
+
+//=======< ПЕРЕМЕННЫЕ >===============================================================
+
+@import './variables';
+
+//=======< / ПЕРЕМЕННЫЕ >============================================================= 
+
+//=======< МИКСИНЫ: МЕДИА-ЗАПРОСЫ >============================================================= 
+
+@import './mixins';
+
+//=======< / МИКСИНЫ: МЕДИА-ЗАПРОСЫ >=============================================================
+
+//=======< ОБЩИЕ СТИЛИ >============================================================= 
+
+body {
+  font-family: $fontFamily, sans-serif;
+  background: #fff;
+}
+
+a, 
+input, 
+button {
+	text-decoration: none;
+	outline: none;
+  border: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.link, 
+.link:hover,
+.link:active, 
+.link:visited {
+  text-decoration: none;
+}
+
+.link {
+  // .link:hover
+  &:hover {
+    color: $link-color-hover;
+  }
+
+  // .link:active
+  &:active {
+    color: $link-color-active;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+//=======< / ОБЩИЕ СТИЛИ >============================================================= 
+
+//=======< CONTENT >===============================================================
+
+//===========< MAIN >===========
+
+.main {
+  max-height: 1095px;
+  display: flex;
+  overflow: hidden;
+
+  @media (max-width: 1100px) {
+    display: block;
+    width: 100vw;
+  }
+
+  // .main__aside
+  &__aside {
+    max-width: 150px;
+    background: $back-color-aside;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    @media (max-width: 1100px) {
+      max-width: 100%;
+      height: 90px;
+    }
+  }
+
+  // .main__body
+  &__body {
+    display: flex;
+    flex: 1 1 auto;
+
+    @include md2() {
+      flex-direction: column;
+    }
+  }
+}
+
+//===========< / MAIN >===========
+
+//===========< MENU >===========
+
+.menu {
+  position: relative;
+
+  // --------------------- < Бургер меню > ---------------------
+  // menu__btn
+  &__btn {
+    @media (max-width: 1100px) {
+      display: block;
+      position: fixed;
+      top: 35px;
+      left: 35px;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 5;
+
+      // menu__btn span
+      // menu__btn::before
+      // menu__btn::after
+      & span,
+      &::before,
+      &::after {
+        position: absolute;
+        left: 0%;
+        width: 100%;
+        height: 10%;
+        transition: all 0.3s ease 0s;
+        background-color: #fff;
+      }
+
+      // menu__btn::before
+      &::before {
+        content: "";
+        top: 0;
+      }
+      
+      // menu__btn::after
+      &::after {
+        content: "";
+        bottom: 0;
+      }
+
+      // menu__btn span
+      & span {
+        top: 50%;
+        transform: scale(1) translate(0px, -50%);
+      }
+      
+      // menu__btn._active span
+      &._active span {
+        transform: scale(0) translate(0px, -50%);
+      }
+      
+      // menu__btn._active::before
+      &._active::before {
+        top: 50%;
+        transform: rotate(-45deg) translate(0px, -50%);
+      }
+      
+      // menu__btn._active::after
+      &._active::after {
+        bottom: 50%;
+        transform: rotate(45deg) translate(0px, 50%);
+      }
+    }
+  }
+  // --------------------- </ Бургер меню > ---------------------
+
+  // .menu__logo
+  // &__logo {
+  // }
+
+  // .menu__item
+  &__item {
+    cursor: pointer;
+    text-align: center;
+    padding: 42.7px 0px 26px;
+    position: relative;
+
+    // .menu__item:first-child
+    &:first-child {
+      padding: 33px 0px 33px;
+    }
+
+    &:nth-child(7) {
+      padding: 44px 0px 0px;
+    }
+
+    // .menu__item:last-child
+    &:last-child {
+      padding: 0px 0px 30.1px;
+    }
+
+    // .menu__item:hover
+    &:hover {
+      background: $back-color-aside-active;
+      transition: all 0.4s ease 0s;
+
+      // .menu__item:hover .menu__title
+      & .menu__title {
+        opacity: 1;
+      }
+
+      // .menu__item:hover .menu__notification
+      & .menu__notification {
+        border: 4px solid $back-color-aside-active;
+      }
+    }
+  }
+
+  // .menu__title
+  &__title {
+    font-size: $font-size-min;
+    line-height: 19px;
+    text-align: center;
+    color: #FFFFFF;
+    opacity: 0.8;
+    margin-top: 20.8px;
+  }
+
+  // .menu__notification
+  &__notification {
+    padding: .5px 7px;
+    background-color: $back-color-notification;
+    font-size: $font-size-mid;
+    font-weight: 500;
+    line-height: 21px;
+    color: #fff;
+    position: absolute;
+    top: 21px;
+    right: 35px;
+    border: 4px solid $back-color-aside;
+
+    @media (max-width: 1100px) {
+      border: 4px solid $font-color-dark-blue;
+    }
+  }
+
+  // .menu__list
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 1100px) {
+      flex-direction: column;
+      justify-content: start;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 150px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 75px 0px 0px;
+      background-color: $font-color-dark-blue;
+      transition: all 0.45s ease;
+      overflow-y: auto;
+      z-index: 3;
+
+      // .menu__list._active
+      &._active {
+        left: 0;
+        transition: all 0.45s ease;
+      }
+    }
+  }
+}
+
+//===========< / MENU >===========
+
+//===========< USERS >===========
+
+.users {
+  max-width: 380px;
+  overflow-y: auto;
+
+  @include md2() {
+    max-width: 100%;
+    max-height: 50vh;
+    border-bottom: 4px solid $font-color-dark-blue;
+  }
+
+  // .users__search
+  &__search {
+    padding: 29px 55px 28px;
+    position: relative;
+    cursor: pointer;
+    border-right: 1px solid $back-color-border;
+    border-bottom: 1px solid $back-color-border;
+
+    // .users__search::before
+    &::before {
+      content: url('../img/auxiliary-icons/icon-search.svg');
+      position: absolute;
+      top: 32px;
+      left: 25px;
+    }
+  }
+
+  // .users__input
+  &__input {
+    font-size: $font-size-max;
+    line-height: 22px;
+    color: $font-color-light-grey;
+
+    @include md4() {
+      font-size: $font-size-min;
+    }
+
+    // .users__input_search
+    // &_search {
+    // }
+  }
+
+  // .users__team
+  // &__team {
+  // }
+
+  // .users__list
+  // &__list {
+  // }
+
+  // .users__item
+  &__item {
+    border-right: 1px solid $back-color-border;
+    border-bottom: 1px solid $back-color-border;
+  }
+
+  // .users__section
+  &__section {
+    position: relative;
+    
+    // .users__section_teams
+    &_teams {
+      padding: 20px 24px 2px;
+    }
+
+    // .users__section_people
+    &_people {
+      padding: 16px 24px 2px;
+    }
+
+    // .users__section::after
+    &::after {
+      content: url('../img/auxiliary-icons/icon-plus.svg');
+      position: absolute;
+      top: 22px;
+      right: 25px;
+      cursor: pointer;
+    }
+  }
+
+  // .users__title
+  &__title {
+    font-size: $font-size-max;
+    font-weight: 500;
+    line-height: 22px;
+    color: $font-color-light-grey;
+    text-transform: uppercase;
+  }
+
+  // .users__body
+  &__body {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  // .users__avatar
+  &__avatar {
+    margin-right: 16px;
+    position: relative;
+
+    // .users__avatar_a
+    &_a {
+      align-self: flex-end;
+      padding-bottom: 20px;
+      margin-right: 8px;
+    }
+
+    // .users__avatar_b
+    &_b {
+      margin-right: 0;
+      margin-left: 8px;
+      align-self: flex-end;
+      padding-bottom: 19px;
+    }
+  }
+
+  // .users__status
+  &__status {
+    position: absolute;
+    right: -3px;
+    bottom: 0px;
+
+    // .users__status_online
+    &_online {
+      background-color: $back-color-status;
+      padding: 4px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
+  }
+
+  // .users__text
+  &__text {
+    display: flex;
+    flex-direction: column;
+    max-width: 208px;
+    position: relative;
+  }
+
+  // .users__user
+  &__user {
+    font-size: $font-size-max;
+    line-height: 22px;
+    color: $font-color-dark-grey;
+
+    @include md4() {
+      font-size: $font-size-min;
+    }
+  }
+
+  // .users__message
+  &__message {
+    font-size: $font-size-mid;
+    line-height: 21px;
+    color: $font-color-light-grey;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include md4() {
+      font-size: $font-size-min;
+      width: 90%;
+    }
+  }
+
+  // .users__notification
+  &__notification {
+    @extend .menu__notification;
+    top: 42px;
+    right: 25px;
+    border: none;
+    transition: none;
+  }
+
+  // .users__people
+  // &__people {
+  // }
+}
+
+//===========< / USERS >===========
+
+//===========< CHAT >===========
+
+.chat {
+  flex: 1 1 auto;
+  overflow-y: auto;
+
+  @include md2() {
+    max-height: 50vh;
+  }
+
+  // .chat__active-user
+  &__active-user {
+    border-bottom: 1px solid $back-color-border;
+  }
+
+  // .chat__body
+  &__body {
+    padding: 14px 30px 10px;
+    cursor: auto;
+  }
+
+  // .chat__text
+  // &__text {
+  // }
+
+  // .chat__user
+  // &__user {
+  // }
+
+  // .chat__tools
+  &__tools {
+    
+    // .chat__tools::before
+    &::before {
+      @extend .users__section::after;
+      top: 32px;
+      right: 80px;
+    }
+
+    // .chat__tools::after
+    &::after {
+      content: url('../img/auxiliary-icons/icon-dots.svg');
+      position: absolute;
+      top: 28px;
+      right: 33px;
+      cursor: pointer;
+    }
+  }
+
+  // .chat__messages
+  // &__messages {
+  // }
+
+  // .chat__send
+  // &__send {
+  // }
+}
+
+//===========< / CHAT >===========
+
+//===========< MESSAGES >===========
+
+.messages {
+  // .messages__list
+  // &__list {
+  // }
+
+  // .messages__item
+  &__item {
+    padding: 22px 30px 0px;
+
+    // .messages__item:first-child
+    &:first-child {
+      padding: 23px 30px 0px;
+    }
+  }
+
+  // .messages__body
+  &__body {
+    @extend .users__body;
+    padding: 0;
+    cursor: auto;
+    align-items: center;
+    
+    // .messages__body_b
+    &_b {
+      flex-direction: row-reverse;
+    }
+  }
+
+  // .messages__text
+  &__text {
+    @extend .users__user;
+    margin-bottom: 4px;
+
+    // .messages__text_a
+    &_a {
+      color: #fff;
+      background-color: $back-color-aside;
+      padding: 18px 20px;
+      border-radius: 8px 8px 8px 1px;
+
+      @include md4() {
+        padding: 10px 14px;
+      }
+    }
+
+    // .messages__text_b
+    &_b {
+      color: $font-color-grey;
+      background-color: $back-color-chat;
+      padding: 18px 24px 18px 20px;
+      border-radius: 8px 8px 1px 8px;
+
+      @include md4() {
+        padding: 10px 14px;
+      }
+    }
+  }
+
+  // .messages__content
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // .messages__message
+  // &__message {
+  // }
+
+  // .messages__emoji
+  &__emoji {
+    transform: translate(0vw, .3vw);
+
+    // .messages__emoji_happy
+    &_happy {
+      content: url('../img/emoji/emoji-happy.svg');
+    }
+
+    // .messages__emoji_nerd
+    &_nerd {
+      content: url('../img/emoji/emoji-nerd.svg');
+    }
+  }
+
+  // .messages__date
+  &__date {
+    font-size: $font-size-min;
+    line-height: 19px;
+    color: $font-color-light-grey;
+    align-self: end;
+  }
+
+  // .messages__settings
+  &__settings {
+    content: url('../img/auxiliary-icons/icon-dots.svg');
+    cursor: pointer;
+
+    // .messages__settings_a
+    &_a {
+      transform: translate(1.3vw, -0.9vw);
+
+      @include md2() {
+        transform: translate(1.3vw, -1.3vw);
+      }
+
+      @include md4() {
+        transform: translate(1.3vw, -2.1vw);
+      }
+
+      @media (max-width: 360px) {
+        transform: translate(1.3vw, -3vw);
+      }
+    }
+
+    // .messages__settings_b
+    &_b {
+      transform: translate(-1.3vw, -0.7vw);
+
+      @include md2() {
+        transform: translate(-1.3vw, -1.1vw);
+      }
+
+      @include md4() {
+        transform: translate(-1.3vw, -2.1vw);
+      }
+
+      @media (max-width: 360px) {
+        transform: translate(-1.3vw, -3.3vw);
+      }
+    }
+  }
+
+  // .messages__settings-a
+  &__settings-a {
+    margin-left: 14px;
+    padding-bottom: 25px;
+    cursor: pointer;
+  }
+
+  // .messages__settings-b
+  &__settings-b {
+    padding-bottom: 25px;
+    margin-right: 14px;
+    cursor: pointer;
+  }
+
+  // .messages__pictures
+  &__pictures {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  // .messages__img
+  &__img {
+    margin-right: 16px;
+    cursor: pointer;
+
+    @include md4() {
+      width: 50px;
+    }
+  }
+
+  // .messages__amount
+  &__amount {
+    text-align: center;
+    padding: 14px 14px 12px;
+    background-color: $back-color-chat;
+    width: 48px;
+    height: 48px;
+    align-self: center;
+    color: $back-color-aside;
+    cursor: pointer;
+  }
+
+  // .messages__tools
+  &__tools {
+    display: flex;
+
+    // .messages__tools_edit
+    &_edit {
+      margin-top: -15px;
+      margin-right: 17px;
+      cursor: pointer;
+    }
+
+    // .messages__tools_delete
+    &_delete {
+      @extend .messages__tools_edit;
+    }
+  }
+
+  // .messages__download
+  // &__download {
+  //   // .messages__download_a
+  //   &_a {
+  //   }
+  // }
+
+  // .messages__days
+  &__days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 0px 37px;
+    font-size: 14px;
+    line-height: 21px;
+    color: $font-color-light-grey;
+    position: relative;
+
+    // .messages__days::before
+    &::before {
+      content: '';
+      height: 1px;
+      background-color: $back-color-border;
+      flex: 1;
+    }
+
+    // .messages__days::after
+    &::after {
+      @extend .messages__days::before;
+    }
+
+    // .messages__days p
+    p {
+      padding: 0px 20px;
+      user-select: none;
+    }
+  }
+}
+
+//===========< / MESSAGES >===========
+
+//===========< DOWNLOAD >===========
+
+.download {
+  display: flex;
+  flex-direction: column;
+  @extend .users__user;
+
+  // .download__file
+  &__file {
+    background-color: $back-color-chat;
+    padding: 18px 20px;
+    border-radius: 8px 8px 0 0;
+
+    @include md4() {
+      padding: 10px 14px;
+    }
+  }
+
+  // .download__file-name
+  &__file-name {
+    margin-bottom: 8px;
+  }
+
+  // .download__file-size
+  &__file-size {
+    color: $back-color-aside;
+  }
+
+  // .download__body
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    background-color: $back-color-aside;
+    padding: 12px 20px;
+    margin-bottom: 4px;
+    border-radius: 0px 0px 8px 1px;
+    cursor: pointer;
+  }
+
+  // .download__text
+  &__text {
+    color: #fff;
+  }
+
+  // .download__icon
+  &__icon {
+    content: url('../img/auxiliary-icons/icon-download.svg');
+
+    @include md4() {
+      width: 12%;
+    }
+  }
+}
+
+//===========< / DOWNLOAD >===========
+
+//===========< SEND >===========
+
+.send {
+  padding-top: 40px;
+
+  // .send__body
+  &__body {
+    border-top: 1px solid $back-color-border;
+    padding: 9px 10px 10px 30px;
+    display: flex;
+  }
+
+  // .send__tools
+  &__tools {
+    display: flex;
+    cursor: pointer;
+
+    // .send__tools_attach
+    &_attach {
+      content: url('../img/auxiliary-icons/icon-attachment.svg');
+      transform: translate(0vw, 0vw);
+    }
+
+    // .send__tools_emoji
+    &_emoji {
+      content: url('../img/auxiliary-icons/icon-emoji.svg');
+      transform: translate(1.3vw, 0vw);
+
+      @include md2() {
+        transform: translate(3vw, 0vw);
+      }
+    }
+  }
+
+  // .send__form
+  &__form {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // .send__input
+  &__input {
+    width: 90%;
+    padding-left: 40px;
+
+    @include md4() {
+      padding-left: 25px;
+    }
+  }
+
+  // .send__submit
+  &__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    background-color: $back-color-aside;
+    cursor: pointer;
+
+    &_icon {
+      content: url('../img/auxiliary-icons/icon-send.svg');
+    }
+  }
+}
+
+//===========< / SEND >===========
+
+//=======< / CONTENT >===============================================================
